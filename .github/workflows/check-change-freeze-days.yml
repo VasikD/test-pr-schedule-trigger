@@ -10,7 +10,7 @@ on:
       - unlabeled
 
     branches:
-      - feature/cfe-000-test-block-merge-based-on-change-freeze-times
+      - main
 
 jobs:
   no_change_freeze_merge:
