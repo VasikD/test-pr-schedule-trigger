@@ -31,19 +31,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TIMEZONE: "Australia/Sydney"
           RESTRICTED_TIMES: >
-            {
-              "weekly": [
-                {
-                  "days": ["wed", "thu", "fri", "sat", "sun"],
-                  "intervals": [[0, 8.5], [16.5, 24]]
-                }
-              ],
-              "dates": [
-                {
-                  "date": "2023-12-25",
-                  "intervals": [[0, 24]]
-                }
-              ]
-            }
+            ${{ vars.CHANGE_FREEZE_DAYS_JSON }}
           CUSTOM_MESSAGE: "The PR can't be merged during the change freeze, which is due to the organization's policy"
         run: no-change-freeze-merge
