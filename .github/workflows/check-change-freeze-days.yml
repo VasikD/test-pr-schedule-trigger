@@ -1,0 +1,36 @@
+name: Change Freeze Times
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - labeled
+      - unlabeled
+
+    branches:
+      - feature/cfe-000-test-block-merge-based-on-change-freeze-times
+
+jobs:
+  no_change_freeze_merge:
+    name: Out of Hours Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Block merge during specified times
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TIMEZONE: "Australia/Sydney"
+          RESTRICTED_TIMES: >
+            ${{ vars.CHANGE_FREEZE_DAYS_JSON }}
+          CUSTOM_MESSAGE: "The PR can't be merged during the change freeze, which is due to the organization's policy"
+        run: no-change-freeze-merge
