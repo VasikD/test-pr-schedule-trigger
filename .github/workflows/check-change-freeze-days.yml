@@ -2,7 +2,6 @@ name: Change Freeze Times
 
 on:
   workflow_call:
-    message: "This workflow is called by other workflows to check for change freeze times"
   pull_request:
     types:
       - opened
