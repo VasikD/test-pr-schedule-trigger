@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '30 22 * * 0-3' # Runs at 10:30 PM UTC, Sunday to Wednesday (which is 8:30 AM Monday to Thursday in Sydney) # Change Freeze End time for Weekdays
     - cron: '30 6 * * 1-4' # Runs at 6:30 AM UTC, Monday to Thursday (which is 4:30 PM Monday to Thursday in Sydney) # Change Freeze Start time for Weekdays
-    - cron: '30 7 * * 3' # Runs at 6:30 AM UTC, Monday to Thursday (which is 4:30 PM Monday to Thursday in Sydney) # Change Freeze Start time for Weekdays
+    - cron: '55 1 * * 3' # Runs at 6:30 AM UTC, Monday to Thursday (which is 4:30 PM Monday to Thursday in Sydney) # Change Freeze Start time for Weekdays
 
 jobs:
   rerun_checks:
@@ -15,4 +15,4 @@ jobs:
         uses: shqear93/rerun-checks@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          check-names: "no_change_freeze_merge" # Replace with the names of the jobs you want to rerun
+          check-names: "check-change-freeze" # Replace with the names of the jobs you want to rerun

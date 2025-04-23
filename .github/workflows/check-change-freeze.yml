@@ -1,0 +1,40 @@
+name: Check change freeze
+on:
+    workflow_call:
+    pull_request:
+        types:
+        - opened
+        - reopened
+        - synchronize
+        - labeled
+        - unlabeled
+
+        branches:
+        - main
+
+env:
+  CHANGE_FREEZE_TIMEZONE: Australia/Sydney
+  CHANGE_FREEZE_START_TIME: "16:30"
+  CHANGE_FREEZE_END_TIME: "08:30"
+
+jobs:
+  check-change-freeze:
+    runs-on: ubuntu-22.04
+    steps:
+
+      # set time zone
+      - uses: zcong1993/setup-timezone@master
+        with:
+          timezone: ${{ env.CHANGE_FREEZE_TIMEZONE }}
+      
+      # check the change freeze
+      - uses: yykamei/block-merge-based-on-time@main
+        with:
+          timezone: ${{ env.CHANGE_FREEZE_TIMEZONE }}
+          after: ${{ env.CHANGE_FREEZE_START_TIME }}
+          before: ${{ env.CHANGE_FREEZE_END_TIME }}
+          base-branches: ${{ vars.CHANGE_FREEZE_BRANCHES }}
+          prohibited-days-dates: |
+            ${{ vars.CHANGE_FREEZE_DAYS }}
+          no-block-label: "hotfix" # add this label to override the change freeze block
+          commit-status-description-while-blocking: "The PR can't be merged during the change freeze, which is due to your organization's policy"
