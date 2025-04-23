@@ -34,4 +34,3 @@ jobs:
           RESTRICTED_TIMES: >
             ${{ vars.CHANGE_FREEZE_DAYS_JSON }}
           CUSTOM_MESSAGE: "The PR can't be merged during the change freeze, which is due to the organization's policy"
-        run: rerun_checks
