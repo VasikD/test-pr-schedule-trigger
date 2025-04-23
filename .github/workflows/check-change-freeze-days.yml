@@ -1,6 +1,8 @@
 name: Change Freeze Times
 
 on:
+  workflow_call:
+    message: "This workflow is called by other workflows to check for change freeze times"
   pull_request:
     types:
       - opened
@@ -33,3 +35,4 @@ jobs:
           RESTRICTED_TIMES: >
             ${{ vars.CHANGE_FREEZE_DAYS_JSON }}
           CUSTOM_MESSAGE: "The PR can't be merged during the change freeze, which is due to the organization's policy"
+        run: rerun_checks
